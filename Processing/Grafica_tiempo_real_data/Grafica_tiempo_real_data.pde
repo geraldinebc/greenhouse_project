@@ -17,14 +17,13 @@ void draw(){
     least1 = puerto.read();      //Leo el tercer bloque de la trama
     D1 = (most1>>6)&1;           //Aislo el bit correspondiente al primer sensor digital
     D2 = (most1>>5)&1;           //Aislo el bit correspondiente al segundo sensor digital
-    println("Encabezado: " + header);
     println("Sensor digital 1: " + D1);
     println("Sensor digital 2: " + D2);
-    high = most1 & 31;           //Aislo los bits correspondientes al sensor analogico [0D1D2AAAAA]&[00011111]=[000HHHHH]
-    data = conversion(high, least1);
+    high = most1 & 31;                //Aislo los bits correspondientes al sensor analogico [0D1D2AAAAA]&[00011111]=[000HHHHH]
+    data = conversion(high, least1);  //Uno los bits mas y menos significativos de la medida del sensor analogico
     println("Sensor analogico: " + data);
   }
-  plot(data);
+  plot(data);                     //Grafico la medida del sensor analogico a tiempo real
 }
 
 int conversion(int valor1, int valor2){
