@@ -5,7 +5,7 @@
 **     Component   : Events
 **     Version     : Driver 01.02
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2018-01-26, 12:45, # CodeGen: 0
+**     Date/Time   : 2014-02-18, 15:36, # CodeGen: 0
 **     Abstract    :
 **         This is user's event module.
 **         Put your event handler code here.
@@ -35,11 +35,12 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "Bit1.h"
-#include "Bit2.h"
-#include "Bit3.h"
 #include "TI1.h"
 #include "AS1.h"
 #include "AD1.h"
+#include "Bit3.h"
+#include "Bit2.h"
+//#include "Cap1.h"
 
 #define ESPERAR 0
 #define MEDIR  1
@@ -167,6 +168,23 @@ void AD1_OnEnd(void);
 **     Returns     : Nothing
 ** ===================================================================
 */
+
+//void Cap1_OnCapture(void);
+/*
+** ===================================================================
+**     Event       :  Cap1_OnCapture (module Events)
+**
+**     Component   :  Cap1 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
 /* END Events */
 #endif /* __Events_H*/
 

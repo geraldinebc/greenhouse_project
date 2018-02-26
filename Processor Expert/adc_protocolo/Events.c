@@ -5,7 +5,7 @@
 **     Component   : Events
 **     Version     : Driver 01.02
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2018-01-26, 12:45, # CodeGen: 0
+**     Date/Time   : 2014-02-18, 15:36, # CodeGen: 0
 **     Abstract    :
 **         This is user's event module.
 **         Put your event handler code here.
@@ -31,6 +31,9 @@
 #include "Cpu.h"
 #include "Events.h"
 
+extern unsigned int error;
+extern bool primero;
+extern unsigned int periodo;
 /* User includes (#include below this line is not maintained by Processor Expert) */
 /*
 ** ===================================================================
@@ -64,6 +67,11 @@ void Cpu_OnSwINT(void)
 */
 void TI1_OnInterrupt(void)
 {
+  /* Write your code here ... */
+	/*if (Bit1_GetVal()==0){		//Bit1=PTA2=Boton 1
+	Bit3_NegVal();					//Bit3=PTC0=LED1
+	}*/
+
 	if (estado == ESPERAR){
 	estado = MEDIR;
 	}
@@ -178,6 +186,29 @@ void AD1_OnEnd(void)
 {
   /* Write your code here ... */
 }
+
+
+/*
+** ===================================================================
+**     Event       :  Cap1_OnCapture (module Events)
+**
+**     Component   :  Cap1 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+//void Cap1_OnCapture(void)
+//{
+  /* Write your code here ... */
+
+	// Borré el código del Capture porque todavía no es relevante....
+	
+//}
 
 /* END Events */
 
