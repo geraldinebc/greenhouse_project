@@ -21,7 +21,6 @@ void draw(){
           high = most1 & 31;                //Aislo los bits correspondientes al sensor analogico [0D1D2AAAAA]&[00011111]=[000HHHHH]
           data = conversion(high, least1);  //Uno los bits mas y menos significativos de la+ medida del sensor analogico
           grafic = (int)map(data, 0, 4096, 3*height/4, 150); //Valor, ini1, fin1, ini2, fin2
-          if(grafic!=19) imprimir(grafic);
         }
      }
 }
