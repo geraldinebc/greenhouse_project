@@ -65,8 +65,8 @@ void imprimir(int data){
 }
 
 void printerm(int temp){
-    image(termocold, 0, 0);
     if(temp>-250){            //Se pinta el termometro azul (baja temperatura)
+    image(termocold, 0, 0);
     fill(1, 144, 233);
     stroke(1, 144, 233);
     rect(125, 405, 36, temp);
