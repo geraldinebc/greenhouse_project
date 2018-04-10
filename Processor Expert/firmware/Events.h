@@ -43,6 +43,7 @@
 #include "Cap1.h"
 #include "Bits1.h"
 #include "Bits2.h"
+#include "TmDt1.h"
 #include "Bit2.h"
 //#include "Cap1.h"
 
@@ -218,6 +219,20 @@ void Cap1_OnCapture(void);
 **         value (only when the component is enabled - <Enable> and the
 **         events are enabled - <EnableEvent>.This event is available
 **         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void TmDt1_OnAlarm(void);
+/*
+** ===================================================================
+**     Event       :  TmDt1_OnAlarm (module Events)
+**
+**     Component   :  TmDt1 [TimeDate]
+**     Description :
+**         This event is called whenever an actual time is equal to the
+**         alarm time (set by <SetAlarm> method).
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================

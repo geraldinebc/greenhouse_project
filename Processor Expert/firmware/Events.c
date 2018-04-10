@@ -31,7 +31,7 @@
 #include "Cpu.h"
 #include "Events.h"
 extern unsigned int Ultra;
-extern bool primero;
+extern bool alarm, timer;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 /*
@@ -229,6 +229,26 @@ void PWM1_OnEnd(void)
 
 }
 
+
+/*
+** ===================================================================
+**     Event       :  TmDt1_OnAlarm (module Events)
+**
+**     Component   :  TmDt1 [TimeDate]
+**     Description :
+**         This event is called whenever an actual time is equal to the
+**         alarm time (set by <SetAlarm> method).
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void TmDt1_OnAlarm(void)
+{
+	if(alarm==0) alarm=1;	// A la hora de la alarma (3:30pm)
+	if(alarm==1) alarm=0;	// A la hora de la alarma (3:35pm)
+	if(timer==0) timer=1;	// A la hora de la alarma (6am)
+	if(timer==1) timer=0;	// A la hora de la alarma (6pm)
+}
 
 /* END Events */
 
