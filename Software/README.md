@@ -42,6 +42,8 @@ Para dibujar la medida del acelerómetro a tiempo real se realiza una línea que
 
 ![digitales](https://github.com/geraldinebc/greenhouse_project/blob/master/Software/digitales.png)
 
+Finalmente como el cultivo se debe regar a una misma hora todos los días se utilizan las funcione hour y minute de processing para crear una función de alarma que obtiene la hora real y dibuja un esparcidor de agua en la esquina inferior derecha de la interfaz para indicar que se está regando la plantación.
+
 A continuación, se muestran dos imágenes de la interfaz gráfica donde se pueden apreciar los distintos estados:
 
 ![Interfaz_grafica_cold](https://github.com/geraldinebc/greenhouse_project/blob/master/Software/Interfaz_grafica_cold.png)
