@@ -9,7 +9,7 @@ Interfaz gráfica del proyecto donde se recibe la información, obtenida a trav�
 - [Requisitos](#requisitos)
 - [Software](#software)
 
-##Módulos
+## Módulos
 
 - [Interfaz Gráfica](https://github.com/geralbarreto/Greenhouse_Project/blob/master/Software/Interfaz_grafica_final.pde): Se muestra un termómetro que varía su estado según la temperatura medida, un tanque que muestra el nivel de agua y cuatro indicadores digitales, el primero indica si hay luz, el segundo la humedad de la tierra, el tercero indica si está lloviendo y el último si se sobrepasa el nivel de temperatura óptimo para el cultivo. Además, se muestran las perturbaciones detectadas por el acelerómetro a tiempo real.
 A continuación, se muestran dos imágenes de la interfaz gráfica donde se pueden apreciar los distintos estados:
