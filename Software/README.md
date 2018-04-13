@@ -5,7 +5,7 @@ Interfaz gráfica del proyecto donde se recibe la información, obtenida a trav�
 
 ## Tabla de contenidos
 - [Módulos](#módulos)
-- [Descripción de funciones](#descripción de funciones)
+- [Descripción de funciones](#descripción-de-funciones)
 - [Requisitos](#requisitos)
 - [Software](#software)
 
