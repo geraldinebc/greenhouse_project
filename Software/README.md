@@ -18,6 +18,7 @@ A continuación, se muestran dos imágenes de la interfaz gráfica donde se pued
 
 ![Interfaz_grafica_hot](https://github.com/geraldinebc/greenhouse_project/blob/master/Software/Interfaz_grafica_hot.png)
 
+
 ## Descripción de funciones
 
 Para extraer las medidas de los sensores de la trama se procedió a decodificar la data recibida por serial. Para los sensores digitales se realizó un shifteo de 6 o 7 bits a la derecha, dependiendo si correspondía al tercer o cuarto bit del bloque de la trama, y se utilizó la operación AND con 1 para aislar la medida, como se muestra a continuación:
