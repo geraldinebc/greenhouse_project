@@ -64,7 +64,7 @@ Cada vez que ocurre la interrupción que controla los estados se cambia del esta
 
 En la siguiente imagen se pueden observar los pines configurados como entradas (negro) y salidas (rojo) en la tarjeta, donde las entradas marcadas como 1 y 2 corresponden a los ADC del acelerómetro y el sensor de temperatura respectivamente. La salida marcada como 3 corresponde al PWM trigger del sensor ultrasónico, y la entrada marcada como 4 corresponde al capture Cap de este mismo sensor. Las entradas 5 y 6 corresponden a las lecturas digitales Bit de los sensores de luz y humedad respectivamente. Las salidas 7, 8, 9 y 10 corresponden a los leds 1, 2, 3 y 4 del DEMOQE128 y por último la salida 11 corresponde al transmisor y la entrada 12 al receptor serial.
 
-![ MC9S08QE128]( https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/MC9S08QE128.PNG)
+![Imagen_MC9S08QE128](https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/Imagen_MC9S08QE128.PNG)
 
 ## Requisitos
 
