@@ -12,7 +12,7 @@ Módulo descriptivo del hardware del proyecto, se incluyen los circuitos de alim
 
 ## Alimentación
 
-La fuente de alimentación construida es de cinco (5) voltios, debido a que los componentes utilizados se polarizan con 5V-0V. Se construye con un regulador de voltaje LM2990-5 y su configuración correspondiente; es decir un conjunto de condensadores de 10µF como lo indica el datasheet.
+La fuente de alimentación construida es de 5 voltios, debido a que los componentes utilizados se polarizan con 5V-0V. Se construye con un regulador de voltaje LM2990-5 y su configuración correspondiente; es decir un conjunto de condensadores de 10µF como lo indica el datasheet.
 
 ![Regulador](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/Regulador.png)
 
@@ -33,17 +33,15 @@ En el Sistema Central se tienen pre-programadas algunas rutinas para el acondici
 ## Protección
 
 El sistema de protección del DEMOQE128 se debe a que sus entradas no soportan un voltaje alto (debe ser menor a 4 voltios), se usa un circuito que proteja tanto los sensores y principalmente al DEMOQE. Se aplica dos tipos de circuitos de protección, uno para las entradas digitales y otro para las entradas analógicas.
-Las entradas analógicas tendrán un seguidor de voltaje para aislar impedancias, seguido de un limitador de voltaje con un zener de 3.0V y una resistencia de protección de 200Ω. De ésta manera no importa que tan grande sea el voltaje de entrada, la salida no superará los 3.0V±0.7V. El circuito es como el que se presenta a continuación:
+Las entradas analógicas tendrán un seguidor de voltaje para aislar impedancias, seguido de un limitador de voltaje con un zener de 3.0V y una resistencia de protección de 200Ω. De ésta manera no importa que tan grande sea el voltaje de entrada, la salida no superará los 3.0V±0.7V. 
 
-![Protección]()
-
-Las entradas digitales esperan voltajes de salida de 0 o 5v, aproximadamente, como 5V es el voltaje de polarización de los elementos amplificadores y de compuertas lógicas, el máximo voltaje es de 5V. Seguido se conecta un divisor de tensión que entrega el 59.45% del voltaje de entrada, es decir, 59.45% de 5V, lo que resulta 2.97V. Luego se conecta con una protección de voltaje con un zener de 3.0V y una resistencia de 200Ω.
+Las entradas digitales esperan voltajes de salida de 0 o 5V, aproximadamente, como 5V es el voltaje de polarización de los elementos amplificadores y de compuertas lógicas, el máximo voltaje es de 5V. Seguido se conecta un divisor de tensión que entrega el 59.45% del voltaje de entrada, es decir, 59.45% de 5V, lo que resulta 2.97V. Luego se conecta con una protección de voltaje con un zener de 3.0V y una resistencia de 200Ω.
 
 ## Sensores
 
-En el sistema del invernadero se implementa, en principio, cinco sensores adicionales a la tarjeta de desarrollo DEMOQE. De los cuales se presentan 2 sensores digitales y dos 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-MMA1270EG), el [sensor de temperatura](#sensor-de-temperatura-LM35) y el [sensor ultrasónico](#sensor-ultrasónico-SRF04).
+En el sistema del invernadero se implementa, en principio, cinco sensores adicionales a la tarjeta de desarrollo DEMOQE. De los cuales se presentan 2 sensores digitales y dos 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-mma1270eg), el [sensor de temperatura](#sensor-de-temperatura-lm35) y el [sensor ultrasónico](#sensor-ultrasónico-srf04).
 
-Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores a utilizar son la [fotorresistencia LDR](#fotorresistencia) el [higrómetro](#higrómetro-FC-28).
+Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores a utilizar son la [fotorresistencia LDR](#fotorresistencia) el [higrómetro](#higrómetro-fc-28).
 ## Descripción de los sensores
 
 ## Acelerómetro MMA1270EG
@@ -51,6 +49,7 @@ Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V
 Se usa un acelerómetro de un solo eje para indicar si existe precipitación constante y fuerte. Esta señal se puede observar en la interfaz del usuario, para estudiar el comportamiento del acelerómetro y determinar la frecuencia de la precipitación. El sensor estará dispuesto bajo una herramienta cubierta, la cual se llena de agua hasta cierto límite, y se vacía, volviendo a su posición inicial para que pueda seguir llenando. Cada vez que la herramienta se desahogue generara un cambio de altura que es enviado al sistema central a través de la medida del acelerómetro. Dependiendo de la frecuencia en que se generen las señales se puede determinar la cantidad de precipitación.
 
 El acondicionamiento de este sensor viene ya implementado en su tarjeta, sin embargo, para cumplir con los valores de voltaje máximos que se puede utilizar como entrada al DEMOQE se le aplica un divisor de voltaje del 59.45% del valor de la señal; de ésta manera no incurrir a sobre cargar la entrada de la tarjeta de desarrollo. A pesar de contar con un sistema de protección es importante que se aplique dicho divisor, debido a que se requiere recuperar la señal y no obtener una señal saturada.
+
 
 ## Sensor de temperatura LM35
 
@@ -62,6 +61,7 @@ Dicho sensor trabaja con una tensión de entrada desde 4V a 20V, y tiene una pre
 
 EL LM35 no requiere circuitería adicional de calibración externa, y por ser su salida lineal, se recomienda para el propósito requerido. A pesar de esto es necesario en este caso implementar un amplificador No Inversor para manejar la data más efectiva dentro del procesador. El factor de amplificación es de 5.6, debido a que un valor más alto podría saturar la salida.
 
+
 ## Sensor ultrasónico SRF04
 
 Este dispositivo se emplea para hacer la medición de la cantidad de agua presente en el tanque, y poder regular el llenado del mismo a través de los otros dispositivos. El sensor detectará que tan distante se encuentra el agua del tanque respecto al tope del mismo por lo tanto se sabrá el nivel de agua.
@@ -72,16 +72,19 @@ El sensor ultrasónico, se utiliza para medir distancias entre 3 y 300 centímet
 
 El sensor funciona a una frecuencia de 40KHz, el cual emite una onda, espera respuesta (eco) y cuyo ancho es proporcional a la distancia. Este dispositivo cuenta con toda la adquisición necesaria, por lo que su salida es conectada directamente al DEMOQE a través del circuito de protección.
 
-![SRF04](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/SRF04.jpeg)
+![SRF04](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/SRF04.png)
 
 Para caracterizar el sensor se tomaron las siguientes medidas:
 
+![caract-ultra](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/caract-ultra.png)
 
 Se puede destacar que el error entre la medida real y la recibida se debe a que la medida real no fue muy rigurosa y que el sensor detecta otros objetos debido a su rango de captura causando variaciones en la medida.
+
 
 ## Fotorresistencia
 
 ...
+
 
 ## Higrómetro FC-28
 
