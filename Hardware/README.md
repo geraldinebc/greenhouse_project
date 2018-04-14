@@ -45,7 +45,7 @@ Las entradas digitales esperan voltajes de salida de 0 o 5V, aproximadamente, co
 
 ## Sensores
 
-En el sistema del invernadero se implementan 5 sensores, de los cuales 2 son digitales y 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-mma1270eg), el [sensor de temperatura](#sensor-de-temperatura-lm35) y el [sensor ultrasónico](#sensor-ultrasónico-srf04). Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores a utilizar son la [fotorresistencia LDR](#fotorresistencia) el [higrómetro](#higrómetro-fc-28).
+En el sistema del invernadero se implementan 5 sensores, de los cuales 2 son digitales y 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-mma1270eg), el [sensor de temperatura](#sensor-de-temperatura-lm35) y el [sensor ultrasónico](#sensor-ultrasónico-srf04). Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores digitales utilizados son la [fotorresistencia LDR](#fotorresistencia) y el [higrómetro](#higrómetro-fc-28).
 
 
 ## Descripción de los sensores
