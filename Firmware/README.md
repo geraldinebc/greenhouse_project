@@ -25,9 +25,9 @@ El sistema depende de 5 sensores y un timer, que permiten ejecutar 5 controles. 
 
 ## Implementación
 
-- ![Firmware](https://github.com/geraldinebc/greenhouse_project/tree/master/Firmware)
-- ![Hardware](https://github.com/geraldinebc/greenhouse_project/tree/master/Hardware)
-- ![Software](https://github.com/geraldinebc/greenhouse_project/tree/master/Software)
+- [Firmware](https://github.com/geraldinebc/greenhouse_project/tree/master/Firmware)
+- [Hardware](https://github.com/geraldinebc/greenhouse_project/tree/master/Hardware)
+- [Software](https://github.com/geraldinebc/greenhouse_project/tree/master/Software)
 
 
 ## Requisitos principales
@@ -47,6 +47,8 @@ El sistema depende de 5 sensores y un timer, que permiten ejecutar 5 controles. 
 
 ## Documentación técnica
 
-![Manual de usuario DEMOQE128](https://github.com/geraldinebc/greenhouse_project/blob/master/Documentacion/DEMOQE_User_Manual.pdf)
+[Manual de usuario DEMOQE128](https://github.com/geraldinebc/greenhouse_project/blob/master/Documentacion/DEMOQE_User_Manual.pdf)
 
-![Manual de usuario Processor Expert]( https://github.com/geraldinebc/greenhouse_project/blob/master/Documentacion/Processor_Expert_User_Manual.PDF)
+[Manual de usuario Processor Expert]( https://github.com/geraldinebc/greenhouse_project/blob/master/Documentacion/Processor_Expert_User_Manual.PDF)
+
+
