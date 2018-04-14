@@ -61,7 +61,7 @@ En la siguiente imagen se pueden observar los pines configurados como entradas (
 
 ## Requisitos
 
-La implementación fue desarrollada mediante el uso de la tarjeta de desarrollo DEMOQE128 utilizando el Microcontrolador de Freescale Semiconductor: MC9S08QE128CLH y fue probada en Windows 7 de 32 y 64 bits
+La implementación fue desarrollada mediante el uso de la tarjeta de desarrollo DEMOQE128 utilizando el Microcontrolador de Freescale Semiconductor: MC9S08QE128CLH y fue probada en Windows 7 de 32 y 64 bits.
 
 ## Software
 
