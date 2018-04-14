@@ -1,54 +1,75 @@
-# Proyecto: Invernadero Inteligente
+# Firmware
 
+## Descripción
+
+El siguiente repositorio contiene la implementación del firmware del proyecto Invernadero Inteligente, en éste se establece la lógica utilizada por el microcontrolador Freescale MC9S08QE128 presente en la tarjeta de desarrollo DEMOQE128.
 
 ## Tabla de Contenidos
-- [Justificación](#justificación)
-- [Descripción General](#descripción-general)
-- [Implementación](#implementación)
+- [Módulos](#módulos)
+- [Requisitos](#requisitos)
 - [Software](#software)
-- [Documentación técnica](#documentación)
+
+## Módulos
+
+- [Firmware](https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/Sources/ProcessorExpert.c)
+
+En este módulo se configuran los componentes, disponibles en la librería de *Processor Expert*, utilizados para la implementación del proyecto. Se utiliza una máquina de estados para recibir las medidas analógicas y digitales captada por la tarjeta y enviarla al ordenador vía serial mediante un protocolo de comunicaciones que se especifica a continuación:
+
+     0xFN 0DDAAAAA 0AAAAAAA
+
+   **N:** Nro. Canales mixtos
+
+   **D:** Sensor digital
+
+   **A:** Sensor analógico
+     
+Para el proyecto en cuestión se utilizan tres sensores analógicos por lo que se necesitan 3 canales mixtos cada uno de los cuales está dividido en 2 mitades de 8 bits.
+     
+Finalmente se utilizó el protocolo:
+
+     [11110011 0D1D2AAAAA 0AAAAAAA 0D30BBBBB 0BBBBBBB 000CCCCC 0CCCCCCC]
+     
+**11110011:** Header para 3 canales
+
+**D1:** Medida digital del fotorresistor
+
+**D2:** Medida digital del higrómetro
+
+**A:** Medida del acelerómetro
+
+**D3:** Bit auxiliar para indicar si está lloviendo
+
+**B:** Medida del sensor de temperatura
+
+**C:** Medida del sensor ultrasónico
+
+Para aplicar este protocolo a las medidas captadas se realizó el siguiente procedimiento:
+
+     La lectura del ADC es                                                                         [AAAAAaaaaaaa0000]
+     Para tener solo los 12 bits se shiftean 4 bits a la derecha                                   [AAAAAaaaaaaa0000]>>4 = [xxxxAAAAAaaaaaaa]
+     Para los bits menos significativos se utiliza un AND 0x7F                                     [xxxxAAAAAaaaaaaa]&[01111111] = [0aaaaaaa]
+     Para los bits más significativos se shiftean 7 bits a la derecha                              [xxxxAAAAAaaaaaaa]>>7 = [xxxAAAAA]&[00011111] = [000AAAAA]
+     Para los sensores digitales se utiliza un OR con 0x40 o 0x20 en caso de que se detecte un 1   [000AAAAA]|[01000000]= [010AAAAA]  [000AAAAA]|[00100000]= [001AAAAA]
 
 
-## Justificación
+- [Events.c](https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/Sources/Events.c) Módulo de eventos (.c) de Processor Expert.
 
-Los agricultores para la producción de frutos con altos índices de calidad, libre de enfermedades y plagas, necesitan un ambiente cerrado y controlado, donde en riego debe ser constante, y tener buena iluminación, para el buen desarrollo de las plantas, es por ello que surge la idea de los invernaderos, pero que mejor forma de controlar un invernadero que bajo sistemas automatizados con sensores para las variables necesaria para el buen funcionamiento y maximización en la producción.
+- [Events.h](https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/Sources/Events.h) Módulo de eventos (.h) de Processor Expert.
 
-Debido a todas las necesidades observadas en un invernadero, principalmente la cantidad de personal que cuiden y mantengan el área, se plantea la idea de construir un invernadero inteligente. Dicho invernadero contará con una cantidad de sensores para la mantención del mismo, con un adicional de sistema de riego con agua reciclada para disminuir gastos, y contribuir con el planeta.
+La máquina de estados consiste en los estados esperar, medir y enviar, está controlada por interrupciones periódicas que se realizan cada 0.7ms, por lo tanto, se pasa del estado de espera al estado de medición con una frecuencia de 1.4KHz. Para realizar las mediciones del acelerómetro y el sensor de temperatura se utilizó el componente ADC disponible en la librería de Processor Expert que permite realizar la medición de distintos canales analógicos y devuelve el valor digital equivalente en 12 bits. Para realizar las mediciones de la fotorresistencia y el higrómetro se utilizó el componente Bit que permite captar el valor digital medido por los pines de la tarjeta seleccionados. Finalmente, para realizar la medida del sensor ultrasónico se utilizó el componente Capture que permite medir el ancho de un pulso, esto es necesario debido a que el sensor ultrasónico emite un pulso y recibe un eco cuyo ancho es proporcional a la distancia a la cual se encuentra el objeto detectado. Cabe destacar que para activar el sensor ultrasónico fue necesario enviar un pulso de 10uS y período de 50ms lo cual se realizó implementando el componente PWM disponible en Processor Expert.
 
+Finalmente, para implementar la toma de acciones del invernadero según la información recibida por los sensores se utilizan funciones sencillas que permitirán indicar, mediante los leds disponibles en el DEMOQE, si es necesario encender las luces, abrir las ventanas o abrir las válvulas de agua potable o de lluvia según sea el caso. En el primer caso se verifica el estado del sensor digital 1 (LDR), si éste es 0 es necesario encender las luces por lo que se enciende el led 1, para saber si es necesario abrir o cerrar las ventanas se compara el valor de la temperatura actual con respecto a uno preestablecido, por lo que si la temperatura sobrepasa el valor ideal se deben abrir las ventanas y se enciende el led 2. Para activar las válvulas de agua se verifica si el nivel del tanque está al nivel óptimo, si no es así se verifica si está lloviendo. Para notar la presencia de lluvia se utiliza la medida del acelerómetro, si esta aumenta y disminuye en un periodo corto de tiempo se asume que está lloviendo por lo que se activa una bandera que se envía por serial al computador como un sensor digital para utilizar esta información en el software de la interfaz gráfica.
 
-## Descripción General
+Cada vez que ocurre la interrupción que controla los estados se cambia del estado esperar a medir, cuando culmina este último se pasa al estado enviar en donde se modifica la data medida para aplicar el protocolo, se toman las acciones necesarias y se envía la trama completa vía serial utilizando el método de envío de bloques del componente AS de comunicación serial asíncrona para finalmente pasar al estado medir y que se repita el ciclo de la máquina de estados.
 
-El invernadero contará con cinco sensores para medir las condiciones mínimas de la plantación, y a través de estas, seguir acciones programadas, garantizando las condiciones mínimas que necesita el cultivo. Las variables mínimas que se deben garantizar son: humedad de la tierra, luminosidad del ambiente y temperatura. A partir de estas variables se toman ciertas acciones que regulan el ambiente, y estabilizan las variables en los valores óptimos. Al sistema Central llega información a través de los sensores desplegados a lo largo del invernadero, en este se realiza todo el procesamiento de la información que a su vez se envía por serial al ordenador para mostrar la información relevante mediante una interfaz gráfica y establecer la lógica de control que determina qué acciones son necesarias.
+En la siguiente imagen se pueden observar los pines configurados como entradas (negro) y salidas (rojo) en la tarjeta, donde las entradas marcadas como 1 y 2 corresponden a los ADC del acelerómetro y el sensor de temperatura respectivamente. La salida marcada como 3 corresponde al PWM trigger del sensor ultrasónico, y la entrada marcada como 4 corresponde al capture Cap de este mismo sensor. Las entradas 5 y 6 corresponden a las lecturas digitales Bit de los sensores de luz y humedad respectivamente. Las salidas 7, 8, 9 y 10 corresponden a los leds 1, 2, 3 y 4 del DEMOQE128 y por último la salida 11 corresponde al transmisor y la entrada 12 al receptor serial.
 
-El sistema depende de 5 sensores y un timer, que permiten ejecutar 5 controles. Los sensores servirán para conocer si está lloviendo (acelerómetro), si la tierra está húmeda (higrómetro) y si el nivel del tanque es el óptimo para regar la plantación (ultrasonido), si el nivel de luz es el adecuado (LDR) y si la temperatura no excede el límite establecido (sensor de temperatura).  mientras que el timer manejará la frecuencia en la que se debe regar. Control 1, acceso de agua de tuberías, al cual se habilitará si el nivel de agua del tanque no es óptimo y no está lloviendo. Control 2, acceso de agua de la lluvia, se habilita cuando el nivel de agua en el tanque no es el óptimo y está lloviendo. Control 3, ventilación que se activa si la temperatura asciende por encima del límite. Control 4, sistema de iluminación, que aumenta o disminuye la intensidad de la luz que incide sobre el terreno según sea necesario. Control 5, sistema de riego que se habilita a una misma hora todos los días. 
+![ MC9S08QE128]( https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/MC9S08QE128.PNG)
 
+## Requisitos
 
-## Implementación
+La implementación fue desarrollada mediante el uso de la tarjeta de desarrollo DEMOQE128 utilizando el Microcontrolador de Freescale Semiconductor: MC9S08QE128CLH y fue probada en Windows 7 de 32 y 64 bits
 
-- [Firmware](https://github.com/geraldinebc/greenhouse_project/tree/master/Firmware)
-- [Hardware](https://github.com/geraldinebc/greenhouse_project/tree/master/Hardware)
-- [Software](https://github.com/geraldinebc/greenhouse_project/tree/master/Software)
+## Software
 
-
-## Requisitos principales
-
-    ## Hardware
-    - Tarjeta de desarrollo DEMOQE128
-    - Microcontrolador Freescale MC9S08QE128
-    - Acelerómetro MMA1270EG
-    - Sensor de temperatura LM35
-    - Sensor ultrasónico SRF04
-    - Fotorresistencia
-    - Higrómetro FC28
-
-    ## Software
-    - CodeWarrior v10.5 + Processor Expert.
-    - Processing 3.6 
-
-## Documentación técnica
-
-[Manual de usuario DEMOQE128](https://github.com/geraldinebc/greenhouse_project/blob/master/Documentacion/DEMOQE_User_Manual.pdf)
-
-[Manual de usuario Processor Expert]( https://github.com/geraldinebc/greenhouse_project/blob/master/Documentacion/Processor_Expert_User_Manual.PDF)
-
-
+El software utilizado para la implementación fue CodeWarrior v10.5 + Processor Expert.
