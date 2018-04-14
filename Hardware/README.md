@@ -2,13 +2,15 @@
 
 ## Descripción
 
-Módulo descriptivo del hardware del proyecto, se incluyen los circuitos de alimentación utilizados, los sensores con sus respectivos datasheets  y circuitos de acondicionamiento.
+Módulo descriptivo del hardware del proyecto, se incluyen los circuitos de alimentación utilizados, los sensores con sus respectivos datasheets y circuitos de acondicionamiento.
 
 ## Tabla de Contenidos
 - [Alimentación](#alimentación)
 - [Sistema central](#sistema-central)
 - [Sensores](#sensores)
+- [Protección](#protección)
 - [Documentación Técnica](#documentación-técnica)
+
 
 ## Alimentación
 
@@ -20,6 +22,7 @@ A diferencia de la configuración típica, en lugar de usar un solo condensador 
 
 Esta fuente debe tener una entrada superior a 6.5 Voltios para esperar en la salida 5V, no debe ser menor ya que existe una caída en los componentes y se debe garantizar el valor en la salida. Y se dice superior a 6.5V, ya que el regulador soporta altos voltajes de entradas, sin exceder los 26V.
 
+
 ## Sistema Central
 
 El sistema Central es donde se procesa la información recibida de los sensores y por el usuario, para luego ejecutar las acciones necesarias, para regular el ambiente del invernadero. Para el Sistema Central se usa la tarjeta de desarrollo DEMOQE128. Este sistema se desarrolla para demostrar, evaluar y depurar microcontroladores Freescale, y puede ser programado vía USB desde un pc o laptop, por donde también puede ser alimentada. Esta tarjeta cuenta con un analizador lógico y un puerto serial virtual mediante USB para un desarrollo rápido. Cuenta con un microcontrolador MC9S08QE128.
@@ -30,6 +33,7 @@ La programación del DEMOQE128 se hace a través del entorno de programación *C
 
 En el Sistema Central se tienen pre-programadas algunas rutinas para el acondicionamiento del invernadero, como la apertura de ventanas, encendido de lámparas, iniciar el sistema de riego y la apertura de válvulas que permiten el paso de agua potable o de lluvia. 
 
+
 ## Protección
 
 El sistema de protección del DEMOQE128 se debe a que sus entradas no soportan un voltaje alto (debe ser menor a 4 voltios), se usa un circuito que proteja tanto los sensores y principalmente al DEMOQE. Se aplica dos tipos de circuitos de protección, uno para las entradas digitales y otro para las entradas analógicas.
@@ -37,12 +41,16 @@ Las entradas analógicas tendrán un seguidor de voltaje para aislar impedancias
 
 Las entradas digitales esperan voltajes de salida de 0 o 5V, aproximadamente, como 5V es el voltaje de polarización de los elementos amplificadores y de compuertas lógicas, el máximo voltaje es de 5V. Seguido se conecta un divisor de tensión que entrega el 59.45% del voltaje de entrada, es decir, 59.45% de 5V, lo que resulta 2.97V. Luego se conecta con una protección de voltaje con un zener de 3.0V y una resistencia de 200Ω.
 
+
 ## Sensores
 
 En el sistema del invernadero se implementa, en principio, cinco sensores adicionales a la tarjeta de desarrollo DEMOQE. De los cuales se presentan 2 sensores digitales y dos 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-mma1270eg), el [sensor de temperatura](#sensor-de-temperatura-lm35) y el [sensor ultrasónico](#sensor-ultrasónico-srf04).
 
 Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores a utilizar son la [fotorresistencia LDR](#fotorresistencia) el [higrómetro](#higrómetro-fc-28).
+
+
 ## Descripción de los sensores
+
 
 ## Acelerómetro MMA1270EG
 
@@ -96,3 +104,8 @@ El FC-28 se distribuye con una placa de medición estándar que permite obtener 
 
 La salida digital dispara cuando el valor de humedad supera un cierto umbral, que ajustamos mediante el potenciómetro. Por tanto, obtendremos una señal LOW cuando el suelo no está húmedo, y HIGH cuando la humedad supera el valor de consigna.
 
+## Documentación técnica
+
+- [Acelerómetro MMA1270EG]( https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/MMA1270EG%20-%20Acelerometro.pdf)
+- [Sensor de temperatura LM35](https://github.com/Fedora-Eugenio/Hardware-emisor/blob/master/XRNI53W.pdf)
+- [Sensor ultrasónico SRF04](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/SRF04%20-Ultrasonico.pdf)
