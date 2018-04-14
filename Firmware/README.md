@@ -25,27 +25,25 @@ El sistema depende de 5 sensores y un timer, que permiten ejecutar 5 controles. 
 
 ## Implementación
 
-# ![Firmware](https://github.com/geraldinebc/greenhouse_project/tree/master/Firmware)
-
-# ![Hardware](https://github.com/geraldinebc/greenhouse_project/tree/master/Hardware)
-
-# ![Software](https://github.com/geraldinebc/greenhouse_project/tree/master/Software)
+- ![Firmware](https://github.com/geraldinebc/greenhouse_project/tree/master/Firmware)
+- ![Hardware](https://github.com/geraldinebc/greenhouse_project/tree/master/Hardware)
+- ![Software](https://github.com/geraldinebc/greenhouse_project/tree/master/Software)
 
 
 ## Requisitos principales
 
-## Hardware
-- Tarjeta de desarrollo DEMOQE128
-- Microcontrolador Freescale MC9S08QE128
-- Acelerómetro MMA1270EG
-- Sensor de temperatura LM35
-- Sensor ultrasónico SRF04
-- Fotorresistencia
-- Higrómetro FC28
+    ## Hardware
+    - Tarjeta de desarrollo DEMOQE128
+    - Microcontrolador Freescale MC9S08QE128
+    - Acelerómetro MMA1270EG
+    - Sensor de temperatura LM35
+    - Sensor ultrasónico SRF04
+    - Fotorresistencia
+    - Higrómetro FC28
 
-## Software
-- CodeWarrior v10.5 + Processor Expert.
-- Processing 3.6 
+    ## Software
+    - CodeWarrior v10.5 + Processor Expert.
+    - Processing 3.6 
 
 ## Documentación técnica
 
