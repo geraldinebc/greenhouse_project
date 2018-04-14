@@ -90,7 +90,7 @@ Se puede destacar que el error entre la medida real y la recibida se debe a que 
 
 ## Fotorresistencia
 
-![fotorresistencia](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/fotorresistencia.png)
+![fotorresistencia](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/Fotorresistencia.png)
 
 La resistencia variable por luz permite detectar los lúmenes pues es un componente cuya resistencia disminuye con el aumento de intensidad de luz incidente. Para esta implementación se utiliza un divisor de voltaje con la LDR en la salida, para variar el voltaje según el valor de esta resistencia, este voltaje se utiliza como referencia en un amplificador no inversor. En este caso según los cálculos realizados se necesita un valor de referencia de 1V, en la entrada inversora del amplificador operacional, y en la entrada no inversora conectar la salida del divisor de voltaje. Con esta configuración, una vez el divisor de voltaje este por debajo de 1V, la salida del OPAMP es de 5V de lo contrario permanece en 0V.
 
