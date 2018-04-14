@@ -28,6 +28,7 @@ El sistema depende de 5 sensores y un timer, que permiten ejecutar 5 controles. 
 ## Requisitos principales
 
    **Hardware**
+   
     - Tarjeta de desarrollo DEMOQE128
     - Microcontrolador Freescale MC9S08QE128
     - Acelerómetro MMA1270EG
@@ -37,6 +38,7 @@ El sistema depende de 5 sensores y un timer, que permiten ejecutar 5 controles. 
     - Higrómetro FC28
 
    **Software**
+   
     - CodeWarrior v10.5 + Processor Expert.
     - Processing 3.6 
 
