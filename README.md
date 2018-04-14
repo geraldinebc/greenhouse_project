@@ -1,4 +1,6 @@
-# Anteproyecto: Invernadero inteligente con reutilización de recursos
+# Anteproyecto
+
+## Invernadero inteligente con reutilización de recursos
 
 En el presente proyecto se expone un prototipo de invernadero inteligente con sistema de reutilización de recursos con el fin de solventar las dificultades que se presentan a la hora de realizar un cultivo. Se propone un invernadero debido a que este permite tener un mayor control sobre las variables ambientales que afectan la siembra. La razón de que sea inteligente es el ahorro recursos naturales y económicos, de forma que se aprovechen al máximo la cantidad de luz y agua, así como la disminución de la intervención de mano de obra.
 
