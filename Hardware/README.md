@@ -2,19 +2,19 @@
 
 ## Descripción
 
-Módulo descriptivo del hardware del proyecto, se incluyen los circuitos de alimentación utilizados, los sensores con sus respectivos datasheets y circuitos de acondicionamiento.
+El siguiente repositorio contiene la implementación del hardware del proyecto, se incluyen los circuitos de alimentación utilizados, la descripción del hardware del sistema central, los sensores con sus respectivos circuitos de acondicionamiento y su documentación técnica.
 
 ## Tabla de Contenidos
 - [Alimentación](#alimentación)
 - [Sistema central](#sistema-central)
-- [Sensores](#sensores)
 - [Protección](#protección)
+- [Sensores](#sensores)
 - [Documentación Técnica](#documentación-técnica)
 
 
 ## Alimentación
 
-La fuente de alimentación construida es de 5 voltios, debido a que los componentes utilizados se polarizan con 5V-0V. Se construye con un regulador de voltaje LM2990-5 y su configuración correspondiente; es decir un conjunto de condensadores de 10µF como lo indica el datasheet.
+La fuente de alimentación construida es de 5 voltios, debido a que los componentes utilizados se polarizan con 5V-0V. Se construye con un regulador de voltaje LM2990 y un conjunto de condensadores de 10µF como lo indica la imagen.
 
 ![Regulador](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/Regulador.png)
 
@@ -25,18 +25,19 @@ Esta fuente debe tener una entrada superior a 6.5 Voltios para esperar en la sal
 
 ## Sistema Central
 
-El sistema Central es donde se procesa la información recibida de los sensores y por el usuario, para luego ejecutar las acciones necesarias, para regular el ambiente del invernadero. Para el Sistema Central se usa la tarjeta de desarrollo DEMOQE128. Este sistema se desarrolla para demostrar, evaluar y depurar microcontroladores Freescale, y puede ser programado vía USB desde un pc o laptop, por donde también puede ser alimentada. Esta tarjeta cuenta con un analizador lógico y un puerto serial virtual mediante USB para un desarrollo rápido. Cuenta con un microcontrolador MC9S08QE128.
+El sistema Central es donde se procesa la información recibida de los sensores y por el usuario, para luego ejecutar las acciones necesarias para regular el ambiente del invernadero. Para el Sistema Central se usa la tarjeta de desarrollo DEMOQE128. Este sistema se desarrolla para demostrar, evaluar y depurar microcontroladores *Freescale*, y puede ser programado vía USB desde un pc o laptop, por donde también puede ser alimentada. Esta tarjeta cuenta con un analizador lógico y un puerto serial virtual mediante USB para un desarrollo rápido. Cuenta con un microcontrolador MC9S08QE128 como se muestra a continuación.
 
 ![DEMOQE128](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/DEMOQE128.png)
 
 La programación del DEMOQE128 se hace a través del entorno de programación *Code Warrior*, el cuál utiliza C como lenguaje de programación. Además, se utiliza *Processor Expert* que es una herramienta de *Code Warrior* que utiliza componentes integrados para generar código fuente lo que facilita el proceso de programar micro controladores, ya que permite inicializar dispositivos de una manera sencilla.
 
-En el Sistema Central se tienen pre-programadas algunas rutinas para el acondicionamiento del invernadero, como la apertura de ventanas, encendido de lámparas, iniciar el sistema de riego y la apertura de válvulas que permiten el paso de agua potable o de lluvia. 
+En el Sistema Central se programan las rutinas para el acondicionamiento del invernadero, como la apertura de ventanas, encendido de lámparas, iniciar el sistema de riego y la apertura de válvulas que permiten el paso de agua potable o de lluvia. Debido a que no se cuenta con una maqueta y/o los implementos necesarios para tomar acciones con respecto a las medidas tomadas, se implementa el uso de los leds del DEMOQE para mostrar la acción que se debe realizar. Las acciones son: abrir o cerrar ventanas, encender o apagar lámparas, activar o desactivar el llenado del tanque (por lluvia, o por tubería), y activar o desactivar el sistema de riego. En el sistema central también se programa la captura de las señales analógicas o digitales de entrada provenientes de los sensores, así como las salidas que activan algunos de estos sensores y el envío de la información por serial, lo cual se describe en el firmware del proyecto.
 
 
 ## Protección
 
-El sistema de protección del DEMOQE128 se debe a que sus entradas no soportan un voltaje alto (debe ser menor a 4 voltios), se usa un circuito que proteja tanto los sensores y principalmente al DEMOQE. Se aplica dos tipos de circuitos de protección, uno para las entradas digitales y otro para las entradas analógicas.
+El sistema de protección del DEMOQE128 se debe a que sus entradas no soportan mayor a 4 voltios, debido a esto se usa un circuito que proteja tanto los sensores como el DEMOQE. Se aplican dos tipos de circuitos de protección, uno para las entradas digitales y otro para las entradas analógicas.
+
 Las entradas analógicas tendrán un seguidor de voltaje para aislar impedancias, seguido de un limitador de voltaje con un zener de 3.0V y una resistencia de protección de 200Ω. De ésta manera no importa que tan grande sea el voltaje de entrada, la salida no superará los 3.0V±0.7V. 
 
 Las entradas digitales esperan voltajes de salida de 0 o 5V, aproximadamente, como 5V es el voltaje de polarización de los elementos amplificadores y de compuertas lógicas, el máximo voltaje es de 5V. Seguido se conecta un divisor de tensión que entrega el 59.45% del voltaje de entrada, es decir, 59.45% de 5V, lo que resulta 2.97V. Luego se conecta con una protección de voltaje con un zener de 3.0V y una resistencia de 200Ω.
@@ -44,9 +45,7 @@ Las entradas digitales esperan voltajes de salida de 0 o 5V, aproximadamente, co
 
 ## Sensores
 
-En el sistema del invernadero se implementa, en principio, cinco sensores adicionales a la tarjeta de desarrollo DEMOQE. De los cuales se presentan 2 sensores digitales y dos 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-mma1270eg), el [sensor de temperatura](#sensor-de-temperatura-lm35) y el [sensor ultrasónico](#sensor-ultrasónico-srf04).
-
-Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores a utilizar son la [fotorresistencia LDR](#fotorresistencia) el [higrómetro](#higrómetro-fc-28).
+En el sistema del invernadero se implementan 5 sensores, de los cuales 2 son digitales y 3 sensores analógicos. Los sensores analógicos son aquellos que su señal de salida es procesada a través de la conversión analógico digital del DEMOQE. Los sensores que trabajan en esta modalidad son el [acelerómetro](#acelerómetro-mma1270eg), el [sensor de temperatura](#sensor-de-temperatura-lm35) y el [sensor ultrasónico](#sensor-ultrasónico-srf04). Los sensores digitales solo pueden tomar dos estados 1 o 0 lógico, es decir, 5V o 0V, respectivamente. Los sensores a utilizar son la [fotorresistencia LDR](#fotorresistencia) el [higrómetro](#higrómetro-fc-28).
 
 
 ## Descripción de los sensores
@@ -84,14 +83,16 @@ El sensor funciona a una frecuencia de 40KHz, el cual emite una onda, espera res
 
 Para caracterizar el sensor se tomaron las siguientes medidas:
 
-![caract-ultra](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/caract-ultra.png)
+![caract-ultra](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/caract-ultra.PNG)
 
 Se puede destacar que el error entre la medida real y la recibida se debe a que la medida real no fue muy rigurosa y que el sensor detecta otros objetos debido a su rango de captura causando variaciones en la medida.
 
 
 ## Fotorresistencia
 
-...
+![fotorresistencia](https://github.com/geraldinebc/greenhouse_project/blob/master/Hardware/fotorresistencia.png)
+
+La resistencia variable por luz permite detectar los lúmenes pues es un componente cuya resistencia disminuye con el aumento de intensidad de luz incidente. Para esta implementación se utiliza un divisor de voltaje con la LDR en la salida, para variar el voltaje según el valor de esta resistencia, este voltaje se utiliza como referencia en un amplificador no inversor. En este caso según los cálculos realizados se necesita un valor de referencia de 1V, en la entrada inversora del amplificador operacional, y en la entrada no inversora conectar la salida del divisor de voltaje. Con esta configuración, una vez el divisor de voltaje este por debajo de 1V, la salida del OPAMP es de 5V de lo contrario permanece en 0V.
 
 
 ## Higrómetro FC-28
