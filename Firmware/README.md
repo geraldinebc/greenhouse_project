@@ -2,7 +2,7 @@
 
 ## Descripción
 
-El siguiente repositorio contiene la implementación del firmware del proyecto invernadero, en éste se establece la lógica utilizada por el microcontrolador Freescale MC9S08QE128 presente en la tarjeta de desarrollo DEMOQE128.
+El siguiente repositorio contiene la implementación del firmware del proyecto Invernadero Inteligente, en éste se establece la lógica utilizada por el microcontrolador Freescale MC9S08QE128 presente en la tarjeta de desarrollo DEMOQE128.
 
 ## Tabla de Contenidos
 - [Módulos](#módulos)
@@ -17,11 +17,9 @@ En este módulo se configuran los componentes, disponibles en la librería de *P
 
      0xFN 0DDAAAAA 0AAAAAAA
 
-   **N:** Nro. Canales mixtos
-   
-   **D:** Sensor digital
-   
-   **A:** Sensor analógico
+- **N:** Nro. Canales mixtos
+- **D:** Sensor digital
+- **A:** Sensor analógico
      
 Para el proyecto en cuestión se utilizan tres sensores analógicos por lo que se necesitan 3 canales mixtos cada uno de los cuales está dividido en 2 mitades de 8 bits.
      
@@ -29,19 +27,13 @@ Finalmente se utilizó el protocolo:
 
      [11110011 0D1D2AAAAA 0AAAAAAA 0D30BBBBB 0BBBBBBB 000CCCCC 0CCCCCCC]
      
-**11110011:** Header para 3 canales
-
-**D1:** Medida digital del fotorresistor
-
-**D2:** Medida digital del higrómetro
-
-**A:** Medida del acelerómetro
-
-**D3:** Bit auxiliar para indicar si está lloviendo
-
-**B:** Medida del sensor de temperatura
-
-**C:** Medida del sensor ultrasónico
+- **11110011:** Header para 3 canales
+- **D1:** Medida digital del fotorresistor
+- **D2:** Medida digital del higrómetro
+- **A:** Medida del acelerómetro
+- **D3:** Bit auxiliar para indicar si está lloviendo
+- **B:** Medida del sensor de temperatura
+- **C:** Medida del sensor ultrasónico
 
 Para aplicar este protocolo a las medidas captadas se realizó el siguiente procedimiento:
 
@@ -64,11 +56,11 @@ Cada vez que ocurre la interrupción que controla los estados se cambia del esta
 
 En la siguiente imagen se pueden observar los pines configurados como entradas (negro) y salidas (rojo) en la tarjeta, donde las entradas marcadas como 1 y 2 corresponden a los ADC del acelerómetro y el sensor de temperatura respectivamente. La salida marcada como 3 corresponde al PWM trigger del sensor ultrasónico, y la entrada marcada como 4 corresponde al capture Cap de este mismo sensor. Las entradas 5 y 6 corresponden a las lecturas digitales Bit de los sensores de luz y humedad respectivamente. Las salidas 7, 8, 9 y 10 corresponden a los leds 1, 2, 3 y 4 del DEMOQE128 y por último la salida 11 corresponde al transmisor y la entrada 12 al receptor serial.
 
-![MC9S08QE128](https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/Imagen_MC9S08QE128.PNG)
+![ MC9S08QE128]( https://github.com/geraldinebc/greenhouse_project/blob/master/Firmware/MC9S08QE128.PNG)
 
 ## Requisitos
 
-La implementación fue desarrollada mediante el uso de la tarjeta de desarrollo DEMOQE128 utilizando el Microcontrolador de Freescale Semiconductor: MC9S08QE128CLH y fue probada en Windows 7 de 32 y 64 bits.
+La implementación fue desarrollada mediante el uso de la tarjeta de desarrollo DEMOQE128 utilizando el Microcontrolador de Freescale Semiconductor: MC9S08QE128CLH y fue probada en Windows 7 de 32 y 64 bits
 
 ## Software
 
